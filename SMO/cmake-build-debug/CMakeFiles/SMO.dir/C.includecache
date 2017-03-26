@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Dominik/Desktop/SMO/smo.c
+smo.h
+C:/Users/Dominik/Desktop/SMO/smo.h
+time.h
+-
+math.h
+-
+stdlib.h
+-
+stdio.h
+-
+assert.h
+-
+
+C:/Users/Dominik/Desktop/SMO/smo.h
+
