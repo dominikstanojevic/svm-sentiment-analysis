@@ -2,8 +2,8 @@
 #define SMO_LIBRARY_H
 
 typedef struct DecisionFunction {
-    double *alpha;
-    double b;
+    double *weights;
+    double bias;
 } DecisionFunction;
 
 typedef struct Parameters {
@@ -12,11 +12,9 @@ typedef struct Parameters {
     int examples;
     int features;
     double C;
-    double (*ker_func)(double *, double *, int);
-    double gamma;
     double tol;
+	double iter;
 } Parameters;
 
 DecisionFunction *smo(Parameters *);
-double rbf_kernel(double *, double *, int);
 #endif

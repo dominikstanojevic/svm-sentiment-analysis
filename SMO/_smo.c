@@ -9,10 +9,10 @@
 
 static PyObject *smo_smo(PyObject *self, PyObject *args) {
     PyObject *input = NULL, *response = NULL;
-    int kernel;
-    double C, gamma, tol;
+	int iter;
+    double C, tol;
 
-    if (!PyArg_ParseTuple(args, "OOiddd", &input, &response, &kernel, &C, &gamma,
+    if (!PyArg_ParseTuple(args, "OOidd", &input, &response, &iter, &C,
                           &tol)) {
         return NULL;
     }
@@ -35,10 +35,9 @@ static PyObject *smo_smo(PyObject *self, PyObject *args) {
 
     Parameters parameters;
     parameters.C = C;
-    parameters.gamma = gamma;
+    parameters.iter = iter;
     parameters.input = x;
     parameters.response = y;
-    //parameters.ker_func = rbf_kernel;
     parameters.examples = arr_in->dimensions[0];
     parameters.features = arr_in->dimensions[1];
     parameters.tol = tol;
@@ -49,11 +48,11 @@ static PyObject *smo_smo(PyObject *self, PyObject *args) {
 
 
     npy_intp *dims = (npy_intp *) malloc(sizeof(npy_intp));
-    dims[0] = parameters.features;
+    dims[0] = parameters.features - 1;
     PyObject *multipliers = PyArray_SimpleNewFromData(1, (npy_intp *) dims, NPY_DOUBLE,
-                                                      (void *) function->alpha);
+                                                      (void *) function->weights);
 
-    PyObject *ret = Py_BuildValue("Nd", multipliers, function->b);
+    PyObject *ret = Py_BuildValue("Nd", multipliers, function->bias);
 
     free(function);
 

@@ -1,0 +1,3 @@
+Kod Tokenizacije popraviti:
+	- maknuti velik broj toèaka ........................
+	- maknuti it's

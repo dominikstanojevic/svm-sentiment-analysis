@@ -11,12 +11,12 @@ static double *x;
 static int *y;
 static int examples;
 static int features;
-static double eps = 1e-4;
+static double eps;
 static double C;
 static double *Q;
 static int *indexes;
-static int *active;
 static int nActive;
+static int maxIters;
 
 int isClose(double, double);
 
@@ -35,6 +35,8 @@ DecisionFunction *smo(Parameters *params) {
     examples = params->examples;
     features = params->features;
     C = params->C;
+	eps = params->tol;
+	maxIters = params->iter;
 
     double U = INFINITY;
     double D = C * 0.5;
@@ -57,17 +59,12 @@ DecisionFunction *smo(Parameters *params) {
     assert(w != NULL);
     for (int i = 0; i < features; i++) w[i] = 0;
 
-    //init active
-    active = (int *) malloc(examples * sizeof(int));
-    for (int i = 0; i < examples; i++) {
-        active[i] = 1;
-    }
     nActive = examples;
 
     double Mbar = INFINITY, mbar = -INFINITY;
 
     int iter = 0;
-    while (1) {
+    while (iter < maxIters) {
         double M = -INFINITY, m = INFINITY;
 
         //permutation
@@ -127,10 +124,7 @@ DecisionFunction *smo(Parameters *params) {
         }
 
         iter++;
-        if (iter > 1000) {
-            break;
-        }
-
+      
         if (M - m <= eps) {
             if (nActive == examples) {
                 break;
@@ -150,7 +144,13 @@ DecisionFunction *smo(Parameters *params) {
     }
 
     DecisionFunction *function = (DecisionFunction *) malloc(sizeof(DecisionFunction));
-    function->alpha = w;
+    function->weights = w + 1;
+	function->bias = *w;
+	
+	free(alpha);
+	free(Q);
+	free(indexes);
+	
     return function;
 }
 
