@@ -1,0 +1,37 @@
+\section{Margina razdvajajuæe hiperravnine} \label{margina}
+Za razliku od drugih klasifikatora koji samo traže razdvajajuæu hiperravninu kako bi klasificirali podatke,
+stroj s potpornim vektorima uzima u obzir i udaljenosti primjeraka od hiperravnine. 
+Intuitivno se može zakljuèiti kako je sigurnije odrediti razred za one primjerke koji su udaljeniji od 
+hiperravnine. Udaljenost primjerka od hiperravnine nazivamo \textbf{margina}.
+
+\par Neka je zadan $i$-ti primjerak $(\mathbf{x}^{(i)}, y^{(i)})$ gdje je $\mathbf{x}^{(i)}$ vektor znaèajki, 
+a $y^{(i)}$ pripadajuæa oznaka razreda.
+\textbf{Funkcijska margina} primjerka $(\mathbf{x}^{(i)}, y^{(i)})$, 
+u odnosu na hiperravninu \hiperravnina{}, definirana je jednadžbom:
+\begin{equation}
+  m^{(i)} = y^{(i)}(b + \mathbf{w}^T\mathbf{x}^{(i)}).
+\end{equation}
+
+\begin{figure}
+\centering
+\includegraphics{distance.pdf}
+\caption{Margina primjerka $(\mathbf{x}^{(i)}, y^{(i)})$}
+\label{fig:mex}
+\end{figure}
+
+\par Na slici \ref{fig:mex} prikazana je udaljenost primjerka od razdvajajuæe hiperravnine.
+Valja uoèiti kako za pozitivne oznake razreda, $y^{(i)} = 1$, vrijednost $b + \mathbf{w}^T\mathbf{x}^{(i)}$ je pozitivna.
+Analogno, za $y^{(i)} = -1$ vrijednost $b + \mathbf{w}^T\mathbf{x}^{(i)}$ je negativna.
+Može se zakljuèiti kako je vrijednost margine za svaki primjerak strogo pozitivna. 
+U sluèaju hiperravnine koja ne razdvaja podatke to svojstvo ne vrijedi.
+
+\par Uz svojstvo pozitivnosti, valja pogledati još jedno svojstvo funkcijske margine.
+Neka su $\mathbf{w}'=k\mathbf{w}$ i $b'=kb$, $k>0$. Tada margina $m'^{(i)}$ za $i$-ti primjerak iznosi:
+$$m'^{(i)}=y^{(i)}(kb + k\mathbf{w}^T\mathbf{x}^{(i)})=ky^{(i)}(b + \mathbf{w}^T\mathbf{x}^{(i)})=km^{(i)}.$$
+
+\par Može se zakljuèiti kako se prilikom skaliranja težina skalira i vrijednost margine, no samo skaliranje ne utjeèe
+na klasifikaciju. Stoga moguæe je normalizirati vektor težina tj. postaviti vrijednost skalara $k$ na
+$\frac{1}{\|\mathbf{w}\|}$. Ovo nam omoguæuje skaliranje parametara bez utjecaja na iznos margine.
+Margina dobivena ovim skaliranjem naziva se \textbf{geometrijska margina.}
+
+\par Nakon definiranja margine za pojedini primjerak, potrebno je definirati i marginu klasifikatora.

@@ -34,14 +34,21 @@ class LinearSVM(AbstractSVM):
         m, n = x.shape
         bias = np.ones((m, 1))
         return np.hstack((bias, x))
-
+    
     def fit(self, x: np.ndarray, y: np.ndarray):
+        x, y = x.astype(float), y.astype(int)
         x = LinearSVM.add_bias(x)
         self.weights, self.bias = smo.smo(x, y, self.iter, self.C, self.eps)
 
     def predict(self, x: np.ndarray):
+        x = x.astype(float)
         val = np.add(x.dot(self.weights), self.bias)
         return LinearSVM.dec_fun(val)
 
     def get_coef(self):
         return self.bias, self.weights
+    
+    def score(self, x: np.ndarray, y: np.ndarray):
+        x, y = x.astype(float), y.astype(int)
+        val = self.predict(x)
+        return np.count_nonzero(y == val) / x.shape[0]

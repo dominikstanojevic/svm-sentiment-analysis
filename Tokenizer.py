@@ -1,5 +1,6 @@
 import re
 import html
+import string
 
 EMOTICONS = r"""
     (?:
@@ -67,13 +68,19 @@ special_re = re.compile(r'(?!</?(' + '|'.join(html_special) + ')+?>)(<[^<]+?>)',
 punctuation = {',', '.', ';', '...', '?', '!', ":"}
 # Negation words given by
 negation_words = {'never', 'no', 'nothing', 'nowhere', 'noone', 'none', 'not', 'havent', 'hasnt', 'hadnt', 'cant',
-                  'couldnt', 'shouldnt', 'wont', 'wouldnt', 'dont', 'doesnt', 'didnt', 'isnt', 'arent', 'aint', 'n\'t'}
+                  'couldnt', 'shouldnt', 'wont', 'wouldnt', 'dont', 'doesnt', 'didnt', 'isnt', 'arent', 'aint', 'n\'t', 
+                  "haven't", "hasn't", "hadn't", "can't", "couldn't", "shouldn't", "won't", "wouldn't", "don't", "didn't", 
+                  "isn't", "aren't", "ain't", "neither", "nor"}
 
 negate_re = re.compile(r'(' + '|'.join(negation_words) + ')', re.VERBOSE | re.I | re.UNICODE)
 
 special_start_re = re.compile(r'<(' + '|'.join(html_special) + ')+?>', re.VERBOSE | re.I | re.UNICODE)
 special_end_re = re.compile(r'</(' + '|'.join(html_special) + ')+?>', re.VERBOSE | re.I | re.UNICODE)
 
+punctuation = string.punctuation
+
+from nltk.corpus import stopwords
+stop = stopwords.words('english') + list(punctuation)
 
 class Tokenizer(object):
     def __init__(self, remove_html=True, negate=True, html_special=True):

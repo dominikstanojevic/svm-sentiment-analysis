@@ -29,7 +29,7 @@ void initQ(double);
 void updateWeights(double oldAlpha, int index);
 
 DecisionFunction *smo(Parameters *params) {
-    srand((unsigned int) time(NULL));
+    //srand((unsigned int) time(NULL));
     x = params->input;
     y = params->response;
     examples = params->examples;

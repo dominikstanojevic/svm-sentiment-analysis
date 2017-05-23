@@ -4,4 +4,3 @@ crtanje custom grafova
 literatura koja se ne koristi specifièno veæ samo kao materijal za uèenje
 Poglavlje 3 (umetnuti i referencu) ili treæe poglavlje
 Ipak treba skripta iz strojnog uèenja
-razdvajajuæe hiperravnine ili hiperravnine margine
